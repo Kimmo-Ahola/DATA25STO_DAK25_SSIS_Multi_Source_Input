@@ -1,0 +1,1285 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="5/19/2026 9:04:24 AM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="SYSTEMENTOR-KA"
+  DTS:CreatorName="SYSTEMENTOR-KA\kimmo"
+  DTS:DTSID="{DF206351-A67D-4143-AFC8-329C24354002}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="17.0.1010.2"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="Package"
+  DTS:PackageType="5"
+  DTS:VersionBuild="9"
+  DTS:VersionGUID="{8C9AE9CF-846A-48EE-A10B-B242767B4217}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[Excel Connection Manager]"
+      DTS:CreationName="EXCEL"
+      DTS:DTSID="{5CD21FA7-4A74-4EC9-961E-07688B8B75F4}"
+      DTS:ObjectName="Excel Connection Manager">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="0"
+          DTS:ConnectRetryInterval="0"
+          DTS:ConnectionString="Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\Users\kimmo\source\repos\exchange_rates.xlsx;Extended Properties=&quot;Excel 12.0 XML;HDR=YES&quot;;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Add exchange_rates"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{7BB78F48-76F2-4EFD-9C2E-0AE236673B99}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Add exchange_rates"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Add exchange_rates\Data Conversion"
+              componentClassID="Microsoft.DataConvert"
+              contactInfo="Data Conversion;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Data Conversion"
+              name="Data Conversion"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Add exchange_rates\Data Conversion.Inputs[Data Conversion Input]"
+                  name="Data Conversion Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Add exchange_rates\Data Conversion.Inputs[Data Conversion Input].Columns[from_currency]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="from_currency"
+                      lineageId="Package\Add exchange_rates\Excel Source - Exchange Rates.Outputs[Excel Source Output].Columns[from_currency]" />
+                    <inputColumn
+                      refId="Package\Add exchange_rates\Data Conversion.Inputs[Data Conversion Input].Columns[to_currency]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="to_currency"
+                      lineageId="Package\Add exchange_rates\Excel Source - Exchange Rates.Outputs[Excel Source Output].Columns[to_currency]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Add exchange_rates\Data Conversion.Outputs[Data Conversion Output]"
+                  exclusionGroup="1"
+                  name="Data Conversion Output"
+                  synchronousInputId="Package\Add exchange_rates\Data Conversion.Inputs[Data Conversion Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Add exchange_rates\Data Conversion.Outputs[Data Conversion Output].Columns[from_currency_string]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      length="10"
+                      lineageId="Package\Add exchange_rates\Data Conversion.Outputs[Data Conversion Output].Columns[from_currency_string]"
+                      name="from_currency_string"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\Add exchange_rates\Excel Source - Exchange Rates.Outputs[Excel Source Output].Columns[from_currency]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Add exchange_rates\Data Conversion.Outputs[Data Conversion Output].Columns[to_currency_string]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      length="10"
+                      lineageId="Package\Add exchange_rates\Data Conversion.Outputs[Data Conversion Output].Columns[to_currency_string]"
+                      name="to_currency_string"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\Add exchange_rates\Excel Source - Exchange Rates.Outputs[Excel Source Output].Columns[to_currency]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Add exchange_rates\Data Conversion.Outputs[Data Conversion Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Data Conversion Error Output"
+                  synchronousInputId="Package\Add exchange_rates\Data Conversion.Inputs[Data Conversion Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Add exchange_rates\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Add exchange_rates\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Add exchange_rates\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Add exchange_rates\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Add exchange_rates\Destination DW Exchange_rates"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="Destination DW Exchange_rates"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[exchange_rates]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Add exchange_rates\Destination DW Exchange_rates.Connections[OleDbConnection]"
+                  connectionManagerID="{746FA81B-7457-48DC-B4FF-85972F738925}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[SSIS_financial_transactions_dw]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Add exchange_rates\Destination DW Exchange_rates.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Add exchange_rates\Destination DW Exchange_rates.Inputs[OLE DB Destination Input].Columns[exchange_rate]"
+                      cachedDataType="r8"
+                      cachedName="exchange_rate"
+                      externalMetadataColumnId="Package\Add exchange_rates\Destination DW Exchange_rates.Inputs[OLE DB Destination Input].ExternalColumns[exchange_rate]"
+                      lineageId="Package\Add exchange_rates\Excel Source - Exchange Rates.Outputs[Excel Source Output].Columns[exchange_rate]" />
+                    <inputColumn
+                      refId="Package\Add exchange_rates\Destination DW Exchange_rates.Inputs[OLE DB Destination Input].Columns[effective_date]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="effective_date"
+                      externalMetadataColumnId="Package\Add exchange_rates\Destination DW Exchange_rates.Inputs[OLE DB Destination Input].ExternalColumns[effective_date]"
+                      lineageId="Package\Add exchange_rates\Excel Source - Exchange Rates.Outputs[Excel Source Output].Columns[effective_date]" />
+                    <inputColumn
+                      refId="Package\Add exchange_rates\Destination DW Exchange_rates.Inputs[OLE DB Destination Input].Columns[from_currency_string]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="10"
+                      cachedName="from_currency_string"
+                      externalMetadataColumnId="Package\Add exchange_rates\Destination DW Exchange_rates.Inputs[OLE DB Destination Input].ExternalColumns[from_currency]"
+                      lineageId="Package\Add exchange_rates\Data Conversion.Outputs[Data Conversion Output].Columns[from_currency_string]" />
+                    <inputColumn
+                      refId="Package\Add exchange_rates\Destination DW Exchange_rates.Inputs[OLE DB Destination Input].Columns[to_currency_string]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="10"
+                      cachedName="to_currency_string"
+                      externalMetadataColumnId="Package\Add exchange_rates\Destination DW Exchange_rates.Inputs[OLE DB Destination Input].ExternalColumns[to_currency]"
+                      lineageId="Package\Add exchange_rates\Data Conversion.Outputs[Data Conversion Output].Columns[to_currency_string]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Add exchange_rates\Destination DW Exchange_rates.Inputs[OLE DB Destination Input].ExternalColumns[from_currency]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      name="from_currency" />
+                    <externalMetadataColumn
+                      refId="Package\Add exchange_rates\Destination DW Exchange_rates.Inputs[OLE DB Destination Input].ExternalColumns[to_currency]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      name="to_currency" />
+                    <externalMetadataColumn
+                      refId="Package\Add exchange_rates\Destination DW Exchange_rates.Inputs[OLE DB Destination Input].ExternalColumns[exchange_rate]"
+                      dataType="r8"
+                      name="exchange_rate" />
+                    <externalMetadataColumn
+                      refId="Package\Add exchange_rates\Destination DW Exchange_rates.Inputs[OLE DB Destination Input].ExternalColumns[effective_date]"
+                      dataType="wstr"
+                      length="10"
+                      name="effective_date" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Add exchange_rates\Destination DW Exchange_rates.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Add exchange_rates\Destination DW Exchange_rates.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Add exchange_rates\Destination DW Exchange_rates.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Add exchange_rates\Destination DW Exchange_rates.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Add exchange_rates\Destination DW Exchange_rates.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Add exchange_rates\Destination DW Exchange_rates.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Add exchange_rates\Excel Source - Exchange Rates"
+              componentClassID="Microsoft.ExcelSource"
+              contactInfo="Excel Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+              description="Excel Source"
+              name="Excel Source - Exchange Rates"
+              usesDispositions="true"
+              version="1">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">Sheet1$</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.String"
+                  description="The mapping from parameters in the SQL command to variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Add exchange_rates\Excel Source - Exchange Rates.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[Excel Connection Manager]"
+                  connectionManagerRefId="Package.ConnectionManagers[Excel Connection Manager]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Add exchange_rates\Excel Source - Exchange Rates.Outputs[Excel Source Output]"
+                  name="Excel Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Add exchange_rates\Excel Source - Exchange Rates.Outputs[Excel Source Output].Columns[from_currency]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Add exchange_rates\Excel Source - Exchange Rates.Outputs[Excel Source Output].ExternalColumns[from_currency]"
+                      length="255"
+                      lineageId="Package\Add exchange_rates\Excel Source - Exchange Rates.Outputs[Excel Source Output].Columns[from_currency]"
+                      name="from_currency"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Add exchange_rates\Excel Source - Exchange Rates.Outputs[Excel Source Output].Columns[to_currency]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Add exchange_rates\Excel Source - Exchange Rates.Outputs[Excel Source Output].ExternalColumns[to_currency]"
+                      length="255"
+                      lineageId="Package\Add exchange_rates\Excel Source - Exchange Rates.Outputs[Excel Source Output].Columns[to_currency]"
+                      name="to_currency"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Add exchange_rates\Excel Source - Exchange Rates.Outputs[Excel Source Output].Columns[exchange_rate]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Add exchange_rates\Excel Source - Exchange Rates.Outputs[Excel Source Output].ExternalColumns[exchange_rate]"
+                      lineageId="Package\Add exchange_rates\Excel Source - Exchange Rates.Outputs[Excel Source Output].Columns[exchange_rate]"
+                      name="exchange_rate"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Add exchange_rates\Excel Source - Exchange Rates.Outputs[Excel Source Output].Columns[effective_date]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Add exchange_rates\Excel Source - Exchange Rates.Outputs[Excel Source Output].ExternalColumns[effective_date]"
+                      length="255"
+                      lineageId="Package\Add exchange_rates\Excel Source - Exchange Rates.Outputs[Excel Source Output].Columns[effective_date]"
+                      name="effective_date"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Add exchange_rates\Excel Source - Exchange Rates.Outputs[Excel Source Output].ExternalColumns[from_currency]"
+                      dataType="wstr"
+                      length="255"
+                      name="from_currency" />
+                    <externalMetadataColumn
+                      refId="Package\Add exchange_rates\Excel Source - Exchange Rates.Outputs[Excel Source Output].ExternalColumns[to_currency]"
+                      dataType="wstr"
+                      length="255"
+                      name="to_currency" />
+                    <externalMetadataColumn
+                      refId="Package\Add exchange_rates\Excel Source - Exchange Rates.Outputs[Excel Source Output].ExternalColumns[exchange_rate]"
+                      dataType="r8"
+                      name="exchange_rate" />
+                    <externalMetadataColumn
+                      refId="Package\Add exchange_rates\Excel Source - Exchange Rates.Outputs[Excel Source Output].ExternalColumns[effective_date]"
+                      dataType="wstr"
+                      length="255"
+                      name="effective_date" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Add exchange_rates\Excel Source - Exchange Rates.Outputs[Excel Source Error Output]"
+                  isErrorOut="true"
+                  name="Excel Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Add exchange_rates\Excel Source - Exchange Rates.Outputs[Excel Source Error Output].Columns[from_currency]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Add exchange_rates\Excel Source - Exchange Rates.Outputs[Excel Source Error Output].Columns[from_currency]"
+                      name="from_currency" />
+                    <outputColumn
+                      refId="Package\Add exchange_rates\Excel Source - Exchange Rates.Outputs[Excel Source Error Output].Columns[to_currency]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Add exchange_rates\Excel Source - Exchange Rates.Outputs[Excel Source Error Output].Columns[to_currency]"
+                      name="to_currency" />
+                    <outputColumn
+                      refId="Package\Add exchange_rates\Excel Source - Exchange Rates.Outputs[Excel Source Error Output].Columns[exchange_rate]"
+                      dataType="r8"
+                      lineageId="Package\Add exchange_rates\Excel Source - Exchange Rates.Outputs[Excel Source Error Output].Columns[exchange_rate]"
+                      name="exchange_rate" />
+                    <outputColumn
+                      refId="Package\Add exchange_rates\Excel Source - Exchange Rates.Outputs[Excel Source Error Output].Columns[effective_date]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Add exchange_rates\Excel Source - Exchange Rates.Outputs[Excel Source Error Output].Columns[effective_date]"
+                      name="effective_date" />
+                    <outputColumn
+                      refId="Package\Add exchange_rates\Excel Source - Exchange Rates.Outputs[Excel Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Add exchange_rates\Excel Source - Exchange Rates.Outputs[Excel Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Add exchange_rates\Excel Source - Exchange Rates.Outputs[Excel Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Add exchange_rates\Excel Source - Exchange Rates.Outputs[Excel Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Add exchange_rates.Paths[Data Conversion Output]"
+              endId="Package\Add exchange_rates\Destination DW Exchange_rates.Inputs[OLE DB Destination Input]"
+              name="Data Conversion Output"
+              startId="Package\Add exchange_rates\Data Conversion.Outputs[Data Conversion Output]" />
+            <path
+              refId="Package\Add exchange_rates.Paths[Excel Source Output]"
+              endId="Package\Add exchange_rates\Data Conversion.Inputs[Data Conversion Input]"
+              name="Excel Source Output"
+              startId="Package\Add exchange_rates\Excel Source - Exchange Rates.Outputs[Excel Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\CustomerTransactions"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{BF60C3AC-4BE8-45C2-8D76-23EC1C47A5B5}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="CustomerTransactions"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\CustomerTransactions\ConnectToDB"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="ConnectToDB"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[financial_transactions]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT 
+t.*, 
+c.customer_name, 
+c.email AS customer_email, 
+c.phone AS customer_phone
+FROM financial_transactions t
+INNER JOIN customer_details c ON t.customer_id = c.customer_id</property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\CustomerTransactions\ConnectToDB.Connections[OleDbConnection]"
+                  connectionManagerID="{9D407C29-1A34-41C1-B4B4-01E711DA6A08}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[SSIS_financial_transactions_db]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\CustomerTransactions\ConnectToDB.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\CustomerTransactions\ConnectToDB.Outputs[OLE DB Source Output].Columns[transaction_id]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\CustomerTransactions\ConnectToDB.Outputs[OLE DB Source Output].ExternalColumns[transaction_id]"
+                      lineageId="Package\CustomerTransactions\ConnectToDB.Outputs[OLE DB Source Output].Columns[transaction_id]"
+                      name="transaction_id"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\CustomerTransactions\ConnectToDB.Outputs[OLE DB Source Output].Columns[customer_id]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\CustomerTransactions\ConnectToDB.Outputs[OLE DB Source Output].ExternalColumns[customer_id]"
+                      lineageId="Package\CustomerTransactions\ConnectToDB.Outputs[OLE DB Source Output].Columns[customer_id]"
+                      name="customer_id"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\CustomerTransactions\ConnectToDB.Outputs[OLE DB Source Output].Columns[supplier_name]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\CustomerTransactions\ConnectToDB.Outputs[OLE DB Source Output].ExternalColumns[supplier_name]"
+                      length="50"
+                      lineageId="Package\CustomerTransactions\ConnectToDB.Outputs[OLE DB Source Output].Columns[supplier_name]"
+                      name="supplier_name"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\CustomerTransactions\ConnectToDB.Outputs[OLE DB Source Output].Columns[transaction_date]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\CustomerTransactions\ConnectToDB.Outputs[OLE DB Source Output].ExternalColumns[transaction_date]"
+                      length="10"
+                      lineageId="Package\CustomerTransactions\ConnectToDB.Outputs[OLE DB Source Output].Columns[transaction_date]"
+                      name="transaction_date"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\CustomerTransactions\ConnectToDB.Outputs[OLE DB Source Output].Columns[amount]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\CustomerTransactions\ConnectToDB.Outputs[OLE DB Source Output].ExternalColumns[amount]"
+                      lineageId="Package\CustomerTransactions\ConnectToDB.Outputs[OLE DB Source Output].Columns[amount]"
+                      name="amount"
+                      precision="10"
+                      scale="2"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\CustomerTransactions\ConnectToDB.Outputs[OLE DB Source Output].Columns[currency]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\CustomerTransactions\ConnectToDB.Outputs[OLE DB Source Output].ExternalColumns[currency]"
+                      length="10"
+                      lineageId="Package\CustomerTransactions\ConnectToDB.Outputs[OLE DB Source Output].Columns[currency]"
+                      name="currency"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\CustomerTransactions\ConnectToDB.Outputs[OLE DB Source Output].Columns[customer_name]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\CustomerTransactions\ConnectToDB.Outputs[OLE DB Source Output].ExternalColumns[customer_name]"
+                      length="50"
+                      lineageId="Package\CustomerTransactions\ConnectToDB.Outputs[OLE DB Source Output].Columns[customer_name]"
+                      name="customer_name"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\CustomerTransactions\ConnectToDB.Outputs[OLE DB Source Output].Columns[customer_email]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\CustomerTransactions\ConnectToDB.Outputs[OLE DB Source Output].ExternalColumns[customer_email]"
+                      length="100"
+                      lineageId="Package\CustomerTransactions\ConnectToDB.Outputs[OLE DB Source Output].Columns[customer_email]"
+                      name="customer_email"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\CustomerTransactions\ConnectToDB.Outputs[OLE DB Source Output].Columns[customer_phone]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\CustomerTransactions\ConnectToDB.Outputs[OLE DB Source Output].ExternalColumns[customer_phone]"
+                      length="20"
+                      lineageId="Package\CustomerTransactions\ConnectToDB.Outputs[OLE DB Source Output].Columns[customer_phone]"
+                      name="customer_phone"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\CustomerTransactions\ConnectToDB.Outputs[OLE DB Source Output].ExternalColumns[transaction_id]"
+                      dataType="i4"
+                      name="transaction_id" />
+                    <externalMetadataColumn
+                      refId="Package\CustomerTransactions\ConnectToDB.Outputs[OLE DB Source Output].ExternalColumns[customer_id]"
+                      dataType="i4"
+                      name="customer_id" />
+                    <externalMetadataColumn
+                      refId="Package\CustomerTransactions\ConnectToDB.Outputs[OLE DB Source Output].ExternalColumns[supplier_name]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="supplier_name" />
+                    <externalMetadataColumn
+                      refId="Package\CustomerTransactions\ConnectToDB.Outputs[OLE DB Source Output].ExternalColumns[transaction_date]"
+                      dataType="wstr"
+                      length="10"
+                      name="transaction_date" />
+                    <externalMetadataColumn
+                      refId="Package\CustomerTransactions\ConnectToDB.Outputs[OLE DB Source Output].ExternalColumns[amount]"
+                      dataType="numeric"
+                      name="amount"
+                      precision="10"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\CustomerTransactions\ConnectToDB.Outputs[OLE DB Source Output].ExternalColumns[currency]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      name="currency" />
+                    <externalMetadataColumn
+                      refId="Package\CustomerTransactions\ConnectToDB.Outputs[OLE DB Source Output].ExternalColumns[customer_name]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="customer_name" />
+                    <externalMetadataColumn
+                      refId="Package\CustomerTransactions\ConnectToDB.Outputs[OLE DB Source Output].ExternalColumns[customer_email]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      name="customer_email" />
+                    <externalMetadataColumn
+                      refId="Package\CustomerTransactions\ConnectToDB.Outputs[OLE DB Source Output].ExternalColumns[customer_phone]"
+                      codePage="1252"
+                      dataType="str"
+                      length="20"
+                      name="customer_phone" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\CustomerTransactions\ConnectToDB.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\CustomerTransactions\ConnectToDB.Outputs[OLE DB Source Error Output].Columns[transaction_id]"
+                      dataType="i4"
+                      lineageId="Package\CustomerTransactions\ConnectToDB.Outputs[OLE DB Source Error Output].Columns[transaction_id]"
+                      name="transaction_id" />
+                    <outputColumn
+                      refId="Package\CustomerTransactions\ConnectToDB.Outputs[OLE DB Source Error Output].Columns[customer_id]"
+                      dataType="i4"
+                      lineageId="Package\CustomerTransactions\ConnectToDB.Outputs[OLE DB Source Error Output].Columns[customer_id]"
+                      name="customer_id" />
+                    <outputColumn
+                      refId="Package\CustomerTransactions\ConnectToDB.Outputs[OLE DB Source Error Output].Columns[supplier_name]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\CustomerTransactions\ConnectToDB.Outputs[OLE DB Source Error Output].Columns[supplier_name]"
+                      name="supplier_name" />
+                    <outputColumn
+                      refId="Package\CustomerTransactions\ConnectToDB.Outputs[OLE DB Source Error Output].Columns[transaction_date]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\CustomerTransactions\ConnectToDB.Outputs[OLE DB Source Error Output].Columns[transaction_date]"
+                      name="transaction_date" />
+                    <outputColumn
+                      refId="Package\CustomerTransactions\ConnectToDB.Outputs[OLE DB Source Error Output].Columns[amount]"
+                      dataType="numeric"
+                      lineageId="Package\CustomerTransactions\ConnectToDB.Outputs[OLE DB Source Error Output].Columns[amount]"
+                      name="amount"
+                      precision="10"
+                      scale="2" />
+                    <outputColumn
+                      refId="Package\CustomerTransactions\ConnectToDB.Outputs[OLE DB Source Error Output].Columns[currency]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      lineageId="Package\CustomerTransactions\ConnectToDB.Outputs[OLE DB Source Error Output].Columns[currency]"
+                      name="currency" />
+                    <outputColumn
+                      refId="Package\CustomerTransactions\ConnectToDB.Outputs[OLE DB Source Error Output].Columns[customer_name]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\CustomerTransactions\ConnectToDB.Outputs[OLE DB Source Error Output].Columns[customer_name]"
+                      name="customer_name" />
+                    <outputColumn
+                      refId="Package\CustomerTransactions\ConnectToDB.Outputs[OLE DB Source Error Output].Columns[customer_email]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      lineageId="Package\CustomerTransactions\ConnectToDB.Outputs[OLE DB Source Error Output].Columns[customer_email]"
+                      name="customer_email" />
+                    <outputColumn
+                      refId="Package\CustomerTransactions\ConnectToDB.Outputs[OLE DB Source Error Output].Columns[customer_phone]"
+                      codePage="1252"
+                      dataType="str"
+                      length="20"
+                      lineageId="Package\CustomerTransactions\ConnectToDB.Outputs[OLE DB Source Error Output].Columns[customer_phone]"
+                      name="customer_phone" />
+                    <outputColumn
+                      refId="Package\CustomerTransactions\ConnectToDB.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\CustomerTransactions\ConnectToDB.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\CustomerTransactions\ConnectToDB.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\CustomerTransactions\ConnectToDB.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\CustomerTransactions\OLE DB Destination"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="OLE DB Destination"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[financial_transactions]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\CustomerTransactions\OLE DB Destination.Connections[OleDbConnection]"
+                  connectionManagerID="{746FA81B-7457-48DC-B4FF-85972F738925}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[SSIS_financial_transactions_dw]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\CustomerTransactions\OLE DB Destination.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\CustomerTransactions\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[transaction_id]"
+                      cachedDataType="i4"
+                      cachedName="transaction_id"
+                      externalMetadataColumnId="Package\CustomerTransactions\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[transaction_id]"
+                      lineageId="Package\CustomerTransactions\ConnectToDB.Outputs[OLE DB Source Output].Columns[transaction_id]" />
+                    <inputColumn
+                      refId="Package\CustomerTransactions\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[customer_id]"
+                      cachedDataType="i4"
+                      cachedName="customer_id"
+                      externalMetadataColumnId="Package\CustomerTransactions\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[customer_id]"
+                      lineageId="Package\CustomerTransactions\ConnectToDB.Outputs[OLE DB Source Output].Columns[customer_id]" />
+                    <inputColumn
+                      refId="Package\CustomerTransactions\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[supplier_name]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="supplier_name"
+                      externalMetadataColumnId="Package\CustomerTransactions\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[supplier_name]"
+                      lineageId="Package\CustomerTransactions\ConnectToDB.Outputs[OLE DB Source Output].Columns[supplier_name]" />
+                    <inputColumn
+                      refId="Package\CustomerTransactions\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[transaction_date]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="transaction_date"
+                      externalMetadataColumnId="Package\CustomerTransactions\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[transaction_date]"
+                      lineageId="Package\CustomerTransactions\ConnectToDB.Outputs[OLE DB Source Output].Columns[transaction_date]" />
+                    <inputColumn
+                      refId="Package\CustomerTransactions\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[amount]"
+                      cachedDataType="numeric"
+                      cachedName="amount"
+                      cachedPrecision="10"
+                      cachedScale="2"
+                      externalMetadataColumnId="Package\CustomerTransactions\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[amount]"
+                      lineageId="Package\CustomerTransactions\ConnectToDB.Outputs[OLE DB Source Output].Columns[amount]" />
+                    <inputColumn
+                      refId="Package\CustomerTransactions\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[currency]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="10"
+                      cachedName="currency"
+                      externalMetadataColumnId="Package\CustomerTransactions\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[currency]"
+                      lineageId="Package\CustomerTransactions\ConnectToDB.Outputs[OLE DB Source Output].Columns[currency]" />
+                    <inputColumn
+                      refId="Package\CustomerTransactions\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[customer_name]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="customer_name"
+                      externalMetadataColumnId="Package\CustomerTransactions\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[customer_name]"
+                      lineageId="Package\CustomerTransactions\ConnectToDB.Outputs[OLE DB Source Output].Columns[customer_name]" />
+                    <inputColumn
+                      refId="Package\CustomerTransactions\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[customer_email]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="100"
+                      cachedName="customer_email"
+                      externalMetadataColumnId="Package\CustomerTransactions\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[customer_email]"
+                      lineageId="Package\CustomerTransactions\ConnectToDB.Outputs[OLE DB Source Output].Columns[customer_email]" />
+                    <inputColumn
+                      refId="Package\CustomerTransactions\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[customer_phone]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="20"
+                      cachedName="customer_phone"
+                      externalMetadataColumnId="Package\CustomerTransactions\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[customer_phone]"
+                      lineageId="Package\CustomerTransactions\ConnectToDB.Outputs[OLE DB Source Output].Columns[customer_phone]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\CustomerTransactions\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[transaction_id]"
+                      dataType="i4"
+                      name="transaction_id" />
+                    <externalMetadataColumn
+                      refId="Package\CustomerTransactions\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[customer_id]"
+                      dataType="i4"
+                      name="customer_id" />
+                    <externalMetadataColumn
+                      refId="Package\CustomerTransactions\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[supplier_name]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="supplier_name" />
+                    <externalMetadataColumn
+                      refId="Package\CustomerTransactions\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[transaction_date]"
+                      dataType="wstr"
+                      length="10"
+                      name="transaction_date" />
+                    <externalMetadataColumn
+                      refId="Package\CustomerTransactions\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[amount]"
+                      dataType="numeric"
+                      name="amount"
+                      precision="10"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\CustomerTransactions\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[currency]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      name="currency" />
+                    <externalMetadataColumn
+                      refId="Package\CustomerTransactions\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[customer_name]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="customer_name" />
+                    <externalMetadataColumn
+                      refId="Package\CustomerTransactions\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[customer_email]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      name="customer_email" />
+                    <externalMetadataColumn
+                      refId="Package\CustomerTransactions\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[customer_phone]"
+                      codePage="1252"
+                      dataType="str"
+                      length="20"
+                      name="customer_phone" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\CustomerTransactions\OLE DB Destination.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\CustomerTransactions\OLE DB Destination.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\CustomerTransactions\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\CustomerTransactions\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\CustomerTransactions\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\CustomerTransactions\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\CustomerTransactions.Paths[OLE DB Source Output]"
+              endId="Package\CustomerTransactions\OLE DB Destination.Inputs[OLE DB Destination Input]"
+              name="OLE DB Source Output"
+              startId="Package\CustomerTransactions\ConnectToDB.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Truncate Data Warehouse"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{49A581F3-3AB5-47BD-A4B6-15C885CA8CE8}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Truncate Data Warehouse"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2025; © 2025 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{746FA81B-7457-48DC-B4FF-85972F738925}"
+          SQLTask:SqlStatementSource="TRUNCATE TABLE financial_transactions" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{C5C5B48C-9E60-4908-B8AD-759B0459CDC9}"
+      DTS:From="Package\Truncate Data Warehouse"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\Add exchange_rates" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{8B1891C9-F604-4E53-B041-2D5B767B3150}"
+      DTS:From="Package\Add exchange_rates"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 1"
+      DTS:To="Package\CustomerTransactions" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="186.666666666667,42.6666666666667"
+          Id="Package\CustomerTransactions"
+          TopLeft="272.499987818301,251.105260400809" />
+        <NodeLayout
+          Size="204,42.6666666666667"
+          Id="Package\Truncate Data Warehouse"
+          TopLeft="259.999988377095,12.3157893384593" />
+        <NodeLayout
+          Size="177.333333333334,42.6666666666667"
+          Id="Package\Add exchange_rates"
+          TopLeft="278.124987566844,127.263156497413" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="364.395821305303,54.982456005126">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,72.2807004922866"
+              Start="0,0"
+              End="0,64.7807004922866">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,64.7807004922866" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 1]"
+          TopLeft="366.312487692573,169.929823164079">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,81.1754372367293"
+              Start="0,0"
+              End="0,73.6754372367293">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,73.6754372367293" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\CustomerTransactions">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="146.666666666667,42.6666666666667"
+          Id="Package\CustomerTransactions\ConnectToDB"
+          TopLeft="342.499984689057,85.5263148504116" />
+        <NodeLayout
+          Size="174.666666666667,42.6666666666667"
+          Id="Package\CustomerTransactions\OLE DB Destination"
+          TopLeft="325.624985443429,225.105260686283" />
+        <EdgeLayout
+          Id="Package\CustomerTransactions.Paths[OLE DB Source Output]"
+          TopLeft="414.395818399576,128.192981517078">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,96.9122791692051"
+              Start="0,0"
+              End="0,89.4122791692051">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,89.4122791692051" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\CustomerTransactions\ConnectToDB">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\CustomerTransactions\OLE DB Destination">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <TaskHost
+    design-time-name="Package\Add exchange_rates">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="229.333333333334,42.6666666666667"
+          Id="Package\Add exchange_rates\Excel Source - Exchange Rates"
+          TopLeft="398.384603511829,102.076920034794" />
+        <NodeLayout
+          Size="233.333333333334,42.6666666666667"
+          Id="Package\Add exchange_rates\Destination DW Exchange_rates"
+          TopLeft="401.794859805169,346.923066583964" />
+        <NodeLayout
+          Size="158.666666666667,42.6666666666667"
+          Id="Package\Add exchange_rates\Data Conversion"
+          TopLeft="432.564089657405,210.769224487818" />
+        <EdgeLayout
+          Id="Package\Add exchange_rates.Paths[Excel Source Output]"
+          TopLeft="512.474346584617,144.74358670146">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,66.025637786358"
+              Start="0,0"
+              End="0,58.525637786358">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,58.525637786358" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Add exchange_rates.Paths[Data Conversion Output]"
+          TopLeft="515.179474731287,253.435891154485">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,93.4871754294788"
+              Start="0,0"
+              End="0,85.9871754294788">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,85.9871754294788" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Add exchange_rates\Excel Source - Exchange Rates">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Add exchange_rates\Destination DW Exchange_rates">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>
